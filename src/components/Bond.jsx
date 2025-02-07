@@ -273,7 +273,7 @@ const Board = () => {
              display: "flex",
              justifyContent: "center",
              alignItems: "center",
-             color: "Black",
+             color: "White",
              fontSize: "0.6rem",
              fontWeight: "lighter",
              height: "60px", // Adjust for better display

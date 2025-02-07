@@ -89,7 +89,7 @@ const Play = () => {
             </button>
             <div className="role-names">
               <p style={{ color: 'yellow', fontWeight: 'bold', marginBottom: '10px' }}>
-                Your nine dices are this:
+                Your nine countries are this:
               </p>
               <small>
                 🇷🇺 RUSSIA, 🇨🇳 CHINA, 🇮🇳 INDIA, 🇷🇴 ROMANIA, 🇵🇱 POLAND, 🇭🇺 HUNGARY, 🇰🇵 NORTH KOREA, 🇮🇩 INDONESIA, 🇪🇬 EGYPT
@@ -102,7 +102,7 @@ const Play = () => {
             </button>
             <div className="role-names">
               <p style={{ color: 'yellow', fontWeight: 'bold', marginBottom: '10px' }}>
-                Your nine dices are this:
+                Your nine countries are this:
               </p>
               <small>
                 🇺🇸 UNITED STATES, 🇨🇦 CANADA, 🇫🇷 FRANCE, 🇬🇧 UNITED KINGDOM, 🇩🇪 GERMANY, 🇮🇹 ITALY, 🇦🇺 AUSTRALIA, 🇰🇷 SOUTH KOREA, 🇯🇵 JAPAN

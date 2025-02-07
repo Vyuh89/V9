@@ -296,7 +296,7 @@ const Board = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: "Blue",
+              color: "White",
               fontSize: "0.6rem",
               fontWeight: "lighter",
               height: "55px", // Adjust for better display
