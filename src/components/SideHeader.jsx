@@ -55,7 +55,7 @@ const SideHeader = () => {
             <span className="menu-icon">📘</span> Game Tutorial
           </div>
           <div className="menu-item" onClick={() => navigate("/partners")}>
-            <span className="menu-icon">💰</span> Donation Vault
+            <span className="menu-icon">💰</span> Coffee☕️
           </div>
           <div className="menu-item" onClick={() => navigate("/about")}>
             <span className="menu-icon">ℹ️</span> About Vyuh

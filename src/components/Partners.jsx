@@ -55,7 +55,7 @@ const Partners = () => {
         for being a vital part of our journey. Let’s make Vyuh’s impact unforgettable, together!
       </p>
 
-      <button onClick={handleDonateClick} className="partners-button">Donate Now</button>
+      <button onClick={handleDonateClick} className="partners-button">Buy me a coffee☕️</button>
       <div className="qr-code-container">
       <img src="Donate.jpg" alt="QR Code for Donation" className="qr-code-image" />
       </div>
