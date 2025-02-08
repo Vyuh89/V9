@@ -128,32 +128,12 @@ body * {
 
 
 .selected {
-  transform: scale(1.1); /* Slightly enlarge the button */
-  border: 2px solid #007bff; /* Blue border for selection */
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Glow effect */
-  color: #ffffff; /* White text for contrast */
-  animation: dance 0.9s infinite ease-in-out; /* Dance animation */
-  transform-origin: flex; /* Ensures rotation happens around center */
+  border: 6px solid #141415; /* Blue border */
+  box-shadow: 0 0 25px rgba(239, 33, 6, 0.9); /* Larger red glow */
+  color: #ffffff; /* White text */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth effects */
 }
 
-/* Dance animation for the selected button */
-@keyframes dance {
-  0% {
-    transform: scale(1.2) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.2) rotate(-10deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(10deg);
-  }
-  75% {
-    transform: scale(1.1) rotate(-5deg);
-  }
-  100% {
-    transform: scale(1.1) rotate(0deg);
-  }
-}
 
 
 /* Button positions for the 3 rectangles */
