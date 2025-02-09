@@ -39,7 +39,7 @@ const Play = () => {
       <button className="play-button" onClick={handleSuperPowerClick}>
         🏆 Cold War 🏆
       </button>
-      <button className="play-button" onClick={() => window.location.href = "https://youtu.be/PpL_-NIO_zo"}>
+      <button className="play-button" onClick={() => window.location.href = "https://youtu.be/lhOmny2DBa4"}>
         🏆 How to Play 🎮
       </button>
       {/* Vyuh Role Selection Modal */}

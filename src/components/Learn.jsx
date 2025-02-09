@@ -4,8 +4,24 @@ import "../App.css";
 const Learn = () => {
   return (
     <div className="learn-page">
-      <h1 className="learn-heading">About Game</h1>
+      <h1 className="learn-heading">Learn Game</h1>
 
+      {/* Video Section - Moved Above */}
+      <div className="video-section">
+        <h2 className="section-title">Watch the Vyuh Tutorial</h2>
+        <div className="video-wrapper">
+          <iframe
+            width="560"
+            height="315"
+            src="LearnM.mp4" 
+            title="Vyuh Game Tutorial"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+      
       {/* Article Section */}
       <div className="article-section">
         <h2 className="section-title">Understanding Vyuh</h2>
@@ -39,7 +55,7 @@ const Learn = () => {
 
           {/* Hindi Rules Section */}
           <div className="rules-box">
-          <div className="rule-item">-------------------------------------📚Game Rules: हिंदी🥇  📚--------------------------------------</div>
+            <div className="rule-item">-------------------------------------📚Game Rules: हिंदी🥇  📚--------------------------------------</div>
             <div className="rule-item">🐎 केवल 2 खिलाड़ी एक समय में खेल सकते हैं🐎</div>
             <div className="rule-item">🎲 प्रत्येक खिलाड़ी को खेल शुरू करने के लिए 9-9 dice मिलते हैं 🎲</div>
             <div className="rule-item">🏌️‍♂️ खिलाड़ी बारी-बारी से बोर्ड पर एक-एक करके dice रखते हैं 🏌️‍♂️</div>
@@ -54,22 +70,6 @@ const Learn = () => {
           <p className="article-text closing">
             "Your exceptional participation in this game reflects your intelligence and sharp mind! Keep honing your skills and stay sharp!"
           </p>
-        </div>
-      </div>
-
-      {/* Video Section */}
-      <div className="video-section">
-        <h2 className="section-title">Watch the Vyuh Tutorial</h2>
-        <div className="video-wrapper">
-          <iframe
-            width="560"
-            height="315"
-            src="LearnM.mp4" 
-            title="Vyuh Game Tutorial"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
         </div>
       </div>
     </div>
