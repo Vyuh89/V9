@@ -53,7 +53,7 @@ const App = () => {
 };
 
 const AppWrapper = () => (
-  <Router basename="/Vyooh/">
+  <Router basename="/">
     <App />
   </Router>
 );
