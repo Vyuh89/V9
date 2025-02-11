@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
         <p>Welcome to Vyuh!</p>
         <p>
           This Privacy Policy ("Policy") outlines the protection of all content, ideas, and intellectual property within Vyuh,
-          a game developed by [thevyuh.com]. By accessing or using Vyuh, you agree to abide by the terms outlined in this Policy.
+          a game developed by [vyuh9.in]. By accessing or using Vyuh, you agree to abide by the terms outlined in this Policy.
         </p>
       </section>
 
@@ -28,12 +28,12 @@ const PrivacyPolicy = () => {
         <h2>Protection of Intellectual Property</h2>
         <p>
           All elements within Vyuh—including but not limited to game design, maps, graphics, characters, ideas, and any other related
-          content—are the exclusive intellectual property of [thevyuh.com]. These materials are protected under applicable copyright laws, 
+          content—are the exclusive intellectual property of [vyuh9.in]. These materials are protected under applicable copyright laws, 
           including the Indian Copyright Act, 1957.
         </p>
         <p>
           No content from Vyuh may be copied, reproduced, modified, distributed, or used in any form without prior written consent 
-          from [thevyuh.com]. Any unauthorized use, reproduction, or distribution of Vyuh’s content will result in immediate legal
+          from [vyuh9.in]. Any unauthorized use, reproduction, or distribution of Vyuh’s content will result in immediate legal
           action under copyright and intellectual property laws.
         </p>
       </section>
@@ -64,7 +64,7 @@ const PrivacyPolicy = () => {
           will be met with legal consequences under the full extent of the law.
         </p>
         <p>
-          In the event of a copyright infringement, [thevyuh.com] will take swift legal action to ensure the protection of 
+          In the event of a copyright infringement, [vyuh9.in] will take swift legal action to ensure the protection of 
           our game’s content and ideas.
         </p>
       </section>
@@ -72,7 +72,7 @@ const PrivacyPolicy = () => {
       <section className="policy-section">
         <h2>User Responsibilities</h2>
         <p>
-          By using Vyuh, you agree to respect the intellectual property rights of [thevyuh.com]. You must not attempt to:
+          By using Vyuh, you agree to respect the intellectual property rights of [vyuh9.in]. You must not attempt to:
         </p>
         <ul>
           <li>Copy or reverse-engineer any aspect of the game.</li>

@@ -84,7 +84,7 @@ const SideHeader = () => {
         </div>
         <div className="footer-copyright">
           <a href="" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-            thevyuh.com
+          vyuh9.in
           </a> © 2024
         </div>
       </footer>
