@@ -84,8 +84,8 @@ const SideHeader = () => {
         </div>
         <div className="footer-copyright">
           <a href="" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-          vyuh9.in
-          </a> © 2024
+          © 2024 - 2025 Vyuh9.in |  All Rights Reserved |  
+          </a> Vyuh is a Copyrighted Work Registered Under Indian Copyright Law. 
         </div>
       </footer>
     </div>
