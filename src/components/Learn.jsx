@@ -5,23 +5,17 @@ const Learn = () => {
   return (
     <div className="learn-page">
       <h1 className="learn-heading">Learn Game</h1>
-
-      {/* Video Section - Moved Above */}
+      
       <div className="video-section">
         <h2 className="section-title">Watch the Vyuh Tutorial</h2>
         <div className="video-wrapper">
-          <iframe
-            width="560"
-            height="315"
-            src="LearnM.mp4" 
-            title="Vyuh Game Tutorial"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <video width="560" height="315" controls autoPlay muted preload="auto">
+            <source src="LearnM.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
-      
+
       {/* Article Section */}
       <div className="article-section">
         <h2 className="section-title">Understanding Vyuh</h2>
@@ -34,7 +28,7 @@ const Learn = () => {
           </p>
           <p className="article-text">
             Vyuh is a game based on the ancient concept of Chakravyuha (चक्रव्यूह), offering an exciting mix of strategy and planning.
-            It is considered a test of intelligence, but despite its complexity, Vyuh is easy to learn and can be enjoyed by players 
+            It is considered a test of intelligence, but despite its complexity, Vyuh is easy to learn and can be enjoyed by players
             of all skill levels. The game is played on a 3x3 square board with 24 positions and 18 dice. The main goal of Vyuh is
             to form "tricks." Once a player forms a trick, they take one of their opponent's dice. The first player to collect 9 dices wins,
             and the game ends.
