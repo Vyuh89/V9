@@ -23,7 +23,7 @@ const Home = () => {
                 <div className="warriors-grid">
                     <div className="warrior-card">
                         <img src="Krisna.jpg" alt="Krishna" className="warrior-image" />
-                        <h3>Shree Krishna</h3>
+                        <h3>Shree Krishnaa</h3>
                         <p>The divine charioteer, philosopher, and embodiment of love and wisdom. His teachings in the Bhagavad Gita illuminate the path of righteousness and devotion.</p>
                     </div>
                     <div className="warrior-card">
