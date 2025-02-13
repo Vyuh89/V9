@@ -91,7 +91,7 @@ const Board = () => {
       if (current.symbol === "P" && !isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn! It's कौरव⚔️ turn.";
+        messageDiv.textContent = "Not Your Turn !  It's कौरव ⚔️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
@@ -103,7 +103,7 @@ const Board = () => {
       if (current.symbol === "K" && isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn! It's पांडव🛡️ turn.";
+        messageDiv.textContent = "Not Your Turn ! It's पांडव 🛡️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
