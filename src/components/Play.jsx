@@ -4,17 +4,24 @@ import { useNavigate } from 'react-router-dom';
 
 const Play = () => {
   const navigate = useNavigate();
-  
+
   // State to manage the modal visibility for Vyuh
   const [showVyuhModal, setShowVyuhModal] = useState(false);
   const [selectedVyuhRole, setSelectedVyuhRole] = useState(''); // To store the Vyuh selected role
-  
+
   // State to manage the modal visibility for ColdWar
   const [showColdWarModal, setShowColdWarModal] = useState(false);
   const [selectedColdWarRole, setSelectedColdWarRole] = useState(''); // To store the ColdWar selected role
 
   const handleMahabharatClick = () => {
     setShowVyuhModal(true); // Show the Vyuh role selection modal
+  };
+
+  const handleModalOverlayClick = (e) => {
+    if (!e.target.closest(".modal-box")) {
+      setShowVyuhModal(false);
+      setShowColdWarModal(false);
+    }
   };
 
   const handleSuperPowerClick = () => {
@@ -44,7 +51,7 @@ const Play = () => {
       </button>
       {/* Vyuh Role Selection Modal */}
       {showVyuhModal && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" onClick={handleModalOverlayClick}>
           <div className="modal-box">
             <h2>Choose Your Role</h2>
 
@@ -80,7 +87,7 @@ const Play = () => {
 
       {/* ColdWar Role Selection Modal */}
       {showColdWarModal && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" onClick={handleModalOverlayClick}>
           <div className="modal-box">
             <h2>Choose Your Group</h2>
             {/* Eastern Allies Section */}
