@@ -64,17 +64,17 @@ const Board = () => {
   // console.log(isKingTurn, "isKingTurn")
 
   const handleClick = (index) => {
-    
+
     setButtons((prevButtons) => {
       const newButtons = [...prevButtons];
       const current = newButtons[index];
-    
+
       if (kingCount < 9 - kingRemovals && isKingTurn && kingLeftDices > 0) {
         setKingLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
       } else if (queenCount < 9 - queenRemovals && !isKingTurn && queenLeftDices > 0) {
         setQueenLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
       }
-    
+
       // Rest of your existing logic...
       return newButtons;
     });
@@ -156,18 +156,52 @@ const Board = () => {
   };
 
   const handleContextMenu = (event, index) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default context menu on all devices
+
     // Prevent removing dice if the color is Yellow or seagreen
     const currentColor = getButtonColor(index);
     if (currentColor === "sandybrown" || currentColor === "skyblue") return;
     if (buttons[index].symbol === null) return;
+
+    // Get the position of the button
     const buttonRect = event.target.getBoundingClientRect();
     setRemoveButtonPosition({
       top: buttonRect.top + window.scrollY + buttonRect.height / 2,
       left: buttonRect.left + window.scrollX + buttonRect.width / 2,
     });
+
+    // Show the "Remove" button
     setShowRemoveButton(true);
     setRemoveButtonIndex(index);
+  };
+
+  // Add long-press support for touch devices
+  const handleTouchStart = (event, index) => {
+    const touchEvent = event.touches[0]; // Get the first touch point
+    const longPressTimer = setTimeout(() => {
+      handleContextMenu({
+        preventDefault: () => { }, // Mock preventDefault for touch events
+        target: {
+          getBoundingClientRect: () => ({
+            top: touchEvent.clientY,
+            left: touchEvent.clientX,
+            height: 0,
+            width: 0,
+          }),
+        },
+      }, index);
+    }, 400); // 0.4 second for long press
+
+    // Store the timer in the event target for cleanup
+    event.target.longPressTimer = longPressTimer;
+  };
+
+  const handleTouchEnd = (event) => {
+    // Clear the long-press timer if the touch ends early
+    if (event.target.longPressTimer) {
+      clearTimeout(event.target.longPressTimer);
+      event.target.longPressTimer = null;
+    }
   };
 
   const handleRemove = () => {
@@ -225,7 +259,7 @@ const Board = () => {
   useEffect(() => {
     if (kingRemovalCount >= 7) {
       setWinner("पांडव🛡️");
-    } else if (queenRemovalCount >= 8) {
+    } else if (queenRemovalCount >= 7) {
       setWinner("कौरव⚔️");
     }
   }, [kingRemovalCount, queenRemovalCount]);
@@ -240,22 +274,24 @@ const Board = () => {
 
   return (
     <>
-        <PlayerCount
-            kingRemovalCount={kingRemovalCount}
-            queenRemovalCount={queenRemovalCount}
-            kingTime={kingTime}
-            queenTime={queenTime}
-            kingLeftDices={kingLeftDices}
-            queenLeftDices={queenLeftDices}
-        />
-        
+      <PlayerCount
+        kingRemovalCount={kingRemovalCount}
+        queenRemovalCount={queenRemovalCount}
+        kingTime={kingTime}
+        queenTime={queenTime}
+        kingLeftDices={kingLeftDices}
+        queenLeftDices={queenLeftDices}
+      />
+
       <div className="rectangle-container Board-background">
         {buttons.map((btn, index) => (
           <button
             key={index}
             className={`rectangle-button ${selectedIndex === index ? "selected" : ""}`}
             onClick={() => handleClick(index)}
-            onContextMenu={(event) => handleContextMenu(event, index)}
+            onContextMenu={(event) => handleContextMenu(event, index)} // Right-click support
+            onTouchStart={(event) => handleTouchStart(event, index)} // Long-press support for touch devices
+            onTouchEnd={handleTouchEnd} // Clear long-press timer
             style={{ backgroundColor: getButtonColor(index) }}
           >
             <div className="piece-symbol">{btn.symbol}</div>

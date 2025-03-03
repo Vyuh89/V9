@@ -72,7 +72,7 @@ const SideHeader = () => {
           <a href="https://x.com/Vyuha_?t=NKXgNuhpracHlIUOlXVfsw&s=08" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faXTwitter} /> {/* X (Twitter) icon */}
           </a>
-          <a href="https://www.youtube.com/@Vyuha-m1t" target="_blank" rel="noopener noreferrer">
+          <a href="https://youtube.com/@vyuh9?si=bLZVfVr6YRv4jQfD" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faYoutube} /> {/* YouTube icon */}
           </a>
           <a href="https://www.instagram.com/vyuh__?utm_source=qr&igsh=cmpmbnhxbnNjNDhq" target="_blank" rel="noopener noreferrer">
