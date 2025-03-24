@@ -22,7 +22,6 @@ const Board = () => {
   const [queenTime, setQueenTime] = useState(0);
   const [winner, setWinner] = useState(null);
 
-
   // Inside the Board component
   const [kingLeftDices, setKingLeftDices] = useState(9); // Initial dice count for King
   const [queenLeftDices, setQueenLeftDices] = useState(9); // Initial dice count for Queen
@@ -138,13 +137,13 @@ const Board = () => {
         }
       } else if (kingCount < 9 - kingRemovals && isKingTurn) {
         const availablePandavNames = pandavNames.filter((name) => !removedPandavNames.includes(name));
-        newButtons[index] = { symbol: "P", color: "rgb(246, 118, 6)", name: availablePandavNames[kingCount] };
+        newButtons[index] = { symbol: "P", color: "Red", name: availablePandavNames[kingCount] };
         setKingCount(kingCount + 1);
         setIsKingTurn(false);
         audio.play(); // Play sound for King
       } else if (queenCount < 9 - queenRemovals && !isKingTurn) {
         const availableKauravNames = kauravNames.filter((name) => !removedKauravNames.includes(name));
-        newButtons[index] = { symbol: "K", color: "rgb(24, 170, 228)", name: availableKauravNames[queenCount] };
+        newButtons[index] = { symbol: "K", color: "Black", name: availableKauravNames[queenCount] };
         setQueenCount(queenCount + 1);
         setIsKingTurn(true);
         audio.play(); // Play sound for Queen
@@ -160,7 +159,7 @@ const Board = () => {
 
     // Prevent removing dice if the color is Yellow or seagreen
     const currentColor = getButtonColor(index);
-    if (currentColor === "sandybrown" || currentColor === "skyblue") return;
+    if (currentColor === "rgb(240, 64, 64)" || currentColor === "rgb(15, 12, 12)") return;
     if (buttons[index].symbol === null) return;
 
     // Get the position of the button
@@ -173,7 +172,7 @@ const Board = () => {
     // Show the "Remove" button
     setShowRemoveButton(true);
     setRemoveButtonIndex(index);
-  };
+  }
 
   // Add long-press support for touch devices
   const handleTouchStart = (event, index) => {
@@ -230,8 +229,8 @@ const Board = () => {
   const getButtonColor = (index) => {
     const isGolden = goldenLines.some((line) => line.includes(index));
     const isBurlywood = pinkLines.some((line) => line.includes(index));
-    if (isGolden) return "sandybrown";
-    if (isBurlywood) return "skyblue";
+    if (isGolden) return "rgb(240, 64, 64)";
+    if (isBurlywood) return "rgb(15, 12, 12)";
     return buttons[index].color;
   };
 
@@ -328,7 +327,7 @@ const Board = () => {
           <div
             className="blinking-light"
             style={{
-              backgroundColor: isKingTurn ? "rgb(246, 118, 6)" : "rgb(24, 170, 228)",
+              backgroundColor: isKingTurn ? "rgb(240, 64, 64)" : "rgb(18, 19, 19)",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

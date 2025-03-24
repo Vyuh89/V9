@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import PlayerCount from "./PlayerCount";
-import WorldWar from "./WorldWar";
+import PlayerCountt from "./PlayerCou";
 
 const Board = () => {
   const totalButtons = 24;
@@ -23,8 +23,12 @@ const Board = () => {
   const [queenTime, setQueenTime] = useState(0);
   const [winner, setWinner] = useState(null);
 
+  // Inside the Board component
+  const [kingLeftDices, setKingLeftDices] = useState(9); // Initial dice count for King
+  const [queenLeftDices, setQueenLeftDices] = useState(9); // Initial dice count for Queen
   const [removedPandavNames, setRemovedPandavNames] = useState([]);
   const [removedKauravNames, setRemovedKauravNames] = useState([]);
+
   const pandavNames = ["🇷🇺 RUSSIA", "🇨🇳 CHINA", "🇮🇳 INDIA", "🇷🇴 Roma nia", "🇵🇱 Poland", "🇭🇺 Hungary", "🇰🇵 North Korea", "🇮🇩 INDO NESIA", "🇪🇬 Egypt"];
   const kauravNames = ["🇺🇸 UNITED STATES", "🇨🇦 CANADA", "🇫🇷 FRANCE", "🇬🇧 UNITED KING DOM", "🇩🇪 GER MANY", "🇮🇹 ITALY", "🇦🇺 Austra lia", "🇰🇷 South Korea", "🇯🇵 Japan"];
 
@@ -43,6 +47,7 @@ const Board = () => {
     [23, 20, 18], [1, 9, 17], [8, 9, 10], [3, 11, 19], [22, 14, 6], [20, 12, 4]
   ];
 
+
   useEffect(() => {
     let interval;
     if (kingCount + queenCount > 0) {
@@ -59,6 +64,21 @@ const Board = () => {
   // console.log(isKingTurn, "isKingTurn")
 
   const handleClick = (index) => {
+
+    setButtons((prevButtons) => {
+      const newButtons = [...prevButtons];
+      const current = newButtons[index];
+
+      if (kingCount < 9 - kingRemovals && isKingTurn && kingLeftDices > 0) {
+        setKingLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
+      } else if (queenCount < 9 - queenRemovals && !isKingTurn && queenLeftDices > 0) {
+        setQueenLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
+      }
+
+      // Rest of your existing logic...
+      return newButtons;
+    });
+
     console.log(index, "index");
     const audio = new Audio('gt.mp3');
 
@@ -66,33 +86,34 @@ const Board = () => {
       const newButtons = [...prevButtons];
       const current = newButtons[index];
 
+
       // Check if it's the player's turn
       if (current.symbol === "P" && !isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn! It's WesternAllies🛡️ turn.";
+        messageDiv.textContent = "Not Your Turn !  It's कौरव ⚔️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
-
         // Remove the message after 3 seconds
         setTimeout(() => {
           messageDiv.remove();
         }, 3000);
         return prevButtons;
       }
-
       if (current.symbol === "K" && isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn! It's EasternAllies🌍 turn.";
+        messageDiv.textContent = "Not Your Turn ! It's पांडव 🛡️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
         setTimeout(() => {
           messageDiv.remove();
         }, 3000);
+
         return prevButtons;
       }
+
       console.log({
         prevButtons,
         selectedIndex: selectedIndex === index,
@@ -117,13 +138,13 @@ const Board = () => {
         }
       } else if (kingCount < 9 - kingRemovals && isKingTurn) {
         const availablePandavNames = pandavNames.filter((name) => !removedPandavNames.includes(name));
-        newButtons[index] = { symbol: "P", color: "rgb(246, 118, 6)", name: availablePandavNames[kingCount] };
+        newButtons[index] = { symbol: "P", color: "Red", name: availablePandavNames[kingCount] };
         setKingCount(kingCount + 1);
         setIsKingTurn(false);
         audio.play(); // Play sound for King
       } else if (queenCount < 9 - queenRemovals && !isKingTurn) {
         const availableKauravNames = kauravNames.filter((name) => !removedKauravNames.includes(name));
-        newButtons[index] = { symbol: "K", color: "rgb(24, 170, 228)", name: availableKauravNames[queenCount] };
+        newButtons[index] = { symbol: "K", color: "Black", name: availableKauravNames[queenCount] };
         setQueenCount(queenCount + 1);
         setIsKingTurn(true);
         audio.play(); // Play sound for Queen
@@ -139,7 +160,7 @@ const Board = () => {
 
     // Prevent removing dice if the color is Yellow or seagreen
     const currentColor = getButtonColor(index);
-    if (currentColor === "sandybrown" || currentColor === "skyblue") return;
+    if (currentColor === "rgb(240, 64, 64)" || currentColor === "rgb(15, 12, 12)") return;
     if (buttons[index].symbol === null) return;
 
     // Get the position of the button
@@ -152,7 +173,7 @@ const Board = () => {
     // Show the "Remove" button
     setShowRemoveButton(true);
     setRemoveButtonIndex(index);
-  };
+  }
 
   // Add long-press support for touch devices
   const handleTouchStart = (event, index) => {
@@ -187,7 +208,6 @@ const Board = () => {
     setButtons((prevButtons) => {
       const newButtons = [...prevButtons];
       const removedPiece = newButtons[removeButtonIndex];
-
       // Add the removed name to the removed list
       if (removedPiece.symbol === "P") {
         setRemovedPandavNames((prev) => [...prev, removedPiece.name]);
@@ -200,7 +220,6 @@ const Board = () => {
         setQueenRemovals(queenRemovals + 1);
         setKingRemovalCount(kingRemovalCount + 1);
       }
-
       // Clear the button
       newButtons[removeButtonIndex] = { symbol: null, color: "white", name: null };
       setShowRemoveButton(false);
@@ -211,8 +230,8 @@ const Board = () => {
   const getButtonColor = (index) => {
     const isGolden = goldenLines.some((line) => line.includes(index));
     const isBurlywood = pinkLines.some((line) => line.includes(index));
-    if (isGolden) return "sandybrown";
-    if (isBurlywood) return "skyblue";
+    if (isGolden) return "rgb(240, 64, 64)";
+    if (isBurlywood) return "rgb(15, 12, 12)";
     return buttons[index].color;
   };
 
@@ -223,7 +242,6 @@ const Board = () => {
   const checkForLines = () => {
     const newGoldenLines = [];
     const newPinkLines = [];
-
     linesToCheck.forEach((line) => {
       const [a, b, c] = line;
       if (buttons[a].symbol === "P" && buttons[b].symbol === "P" && buttons[c].symbol === "P") {
@@ -240,9 +258,9 @@ const Board = () => {
   // Check for winner
   useEffect(() => {
     if (kingRemovalCount >= 7) {
-      setWinner("Eastern Allies🌍");
+      setWinner("Eastern Allies🛡️");
     } else if (queenRemovalCount >= 7) {
-      setWinner("Western Allies🛡️");
+      setWinner("Western Allies⚔️");
     }
   }, [kingRemovalCount, queenRemovalCount]);
 
@@ -256,7 +274,15 @@ const Board = () => {
 
   return (
     <>
-      <WorldWar kingRemovalCount={kingRemovalCount} queenRemovalCount={queenRemovalCount} kingTime={kingTime} queenTime={queenTime} />
+      <PlayerCountt
+        kingRemovalCount={kingRemovalCount}
+        queenRemovalCount={queenRemovalCount}
+        kingTime={kingTime}
+        queenTime={queenTime}
+        kingLeftDices={kingLeftDices}
+        queenLeftDices={queenLeftDices}
+      />
+
       <div className="rectangle-container Board-background">
         {buttons.map((btn, index) => (
           <button
@@ -284,7 +310,7 @@ const Board = () => {
 
         {winner && (
           <div className="winner-box">
-            🎉Congratulations! <strong>{winner}</strong> Won !🏆 🎉🎈🎉🎈🎈🎉🎈🎉🎈🎉🎈🎉
+            🎉🎈 Congratulations! <strong>{winner}</strong> Won ! 🏆 🎉🎈🎉🎈🎈🎉🎈🎉🎈🎉🎈🎉
           </div>
         )}
 
@@ -302,16 +328,16 @@ const Board = () => {
           <div
             className="blinking-light"
             style={{
-              backgroundColor: isKingTurn ? "rgb(246, 118, 6)" : "rgb(24, 170, 228)",
+              backgroundColor: isKingTurn ? "rgb(240, 64, 64)" : "rgb(10, 11, 11)",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               color: "White",
               fontSize: "0.6rem",
               fontWeight: "lighter",
-              height: "60px", // Adjust for better display
+              height: "55px", // Adjust for better display
               width: "200px", // Adjust for better display
-              borderRadius: "5px", // Optional: rounded corners
+              borderRadius: "10px", // Optional: rounded corners
               textAlign: "center",
             }}
           >
@@ -320,22 +346,20 @@ const Board = () => {
         </div>
 
         <svg className="rectangle-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <rect x="5" y="5" width="90" height="90" fill="none" stroke="rgb(134, 6, 246)" strokeWidth="0.5" />
-          <rect x="20" y="20" width="60" height="60" fill="none" stroke="rgb(134, 6, 246)" strokeWidth="0.5" />
-          <rect x="35" y="35" width="30" height="30" fill="none" stroke="rgb(134, 6, 246)" strokeWidth="0.5" />
-          <line x1="50%" y1="5%" x2="50%" y2="20%" stroke="Red" strokeWidth="0.5" />
-          <line x1="50%" y1="20%" x2="50%" y2="35%" stroke="Red" strokeWidth="0.5" />
-          <line x1="5%" y1="50%" x2="20%" y2="50%" stroke="Red" strokeWidth="0.5" />
-          <line x1="20%" y1="50%" x2="35%" y2="50%" stroke="Red" strokeWidth="0.5" />
-          <line x1="95%" y1="50%" x2="80%" y2="50%" stroke="Red" strokeWidth="0.5" />
-          <line x1="80%" y1="50%" x2="65%" y2="50%" stroke="Red" strokeWidth="0.5" />
-          <line x1="50%" y1="95%" x2="50%" y2="80%" stroke="Red" strokeWidth="0.5" />
-          <line x1="50%" y1="80%" x2="50%" y2="65%" stroke="Red" strokeWidth="0.5" />
+          <rect x="5" y="5" width="90" height="90" fill="none" stroke="red" strokeWidth="0.4" />
+          <rect x="20" y="20" width="60" height="60" fill="none" stroke="blue" strokeWidth="0.4" />
+          <rect x="35" y="35" width="30" height="30" fill="none" stroke="orange" strokeWidth="0.4" />
+          <line x1="50%" y1="5%" x2="50%" y2="20%" stroke="blue" strokeWidth="0.4" />
+          <line x1="50%" y1="20%" x2="50%" y2="35%" stroke="blue" strokeWidth="0.4" />
+          <line x1="5%" y1="50%" x2="20%" y2="50%" stroke="blue" strokeWidth="0.4" />
+          <line x1="20%" y1="50%" x2="35%" y2="50%" stroke="blue" strokeWidth="0.4" />
+          <line x1="95%" y1="50%" x2="80%" y2="50%" stroke="blue" strokeWidth="0.4" />
+          <line x1="80%" y1="50%" x2="65%" y2="50%" stroke="blue" strokeWidth="0.4" />
+          <line x1="50%" y1="95%" x2="50%" y2="80%" stroke="blue" strokeWidth="0.4" />
+          <line x1="50%" y1="80%" x2="50%" y2="65%" stroke="blue" strokeWidth="0.4" />
         </svg>
       </div>
     </>
   );
 };
-
 export default Board;
-

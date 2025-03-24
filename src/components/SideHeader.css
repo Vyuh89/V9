@@ -1,106 +1,166 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Side Header */
 .side-header {
-    height: 50px;
-    width: 100vw;
-    background-color: #2c2c2c;
-    color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    font-family: Arial, sans-serif;
-    transition: height 0.3s ease;
+  height: 60px; /* Slightly taller for better visibility */
+  width: 100vw;
+  background-color: #1e1e1e; /* Darker background for a sleek look */
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'Arial', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  z-index: 1000; /* Ensure it stays on top */
 }
 
 .side-header.expanded {
-    height: 50px;
+  height: 70px;
 }
 
 .side-header.collapsed {
-    height: 8px;
+  height: 8px;
 }
 
+/* Logo */
 .vyuh-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1px;
+  padding: 10px;
+  margin-left: 20px; /* Add some spacing */
 }
 
 .logo-image {
-  margin-left: -2vh;
-  margin-top: 1.3vh;
-  height: 5vh;
-  width: 12vh;
+  height: 40px; /* Slightly larger logo */
+  width: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s ease;
 }
 
+.logo-image:hover {
+  transform: scale(1.1); /* Add a hover effect */
+}
+
+/* Menu Options */
 .menu-options {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  margin-right: 20px; /* Add spacing on the right */
 }
 
 .menu-item {
-    padding: 1px 5px;
-    font-size: 15px;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #ffffff;
+  padding: 10px 15px; /* More padding for better clickability */
+  font-size: 16px; /* Slightly larger font */
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  border-radius: 5px; /* Rounded corners */
 }
 
 .menu-item:hover {
-    background-color: #1a6fd6;
+  background-color: #1a6fd6; /* Highlight color */
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
 }
 
 .menu-icon {
-    margin-right: 8px;
-    font-size: 12px;
+  margin-right: 8px;
+  font-size: 14px; /* Slightly larger icon */
 }
 
+/* Dropdown Menu */
 .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #3d3d3d;
-    width: 120px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding-top: 5px;
-    padding-bottom: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #2c2c2c; /* Darker dropdown background */
+  width: 150px; /* Wider dropdown */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  padding: 10px 0; /* More padding */
+  border-radius: 5px; /* Rounded corners */
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-item:hover .dropdown-menu {
+  opacity: 1; /* Show dropdown on hover */
+  visibility: visible;
 }
 
 .dropdown-menu div {
-    padding: 5px 10px;
-    font-size: 12px;
-    cursor: pointer;
-    color: #ffffff;
+  padding: 10px 15px; /* More padding */
+  font-size: 14px; /* Slightly larger font */
+  cursor: pointer;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
 }
 
 .dropdown-menu div:hover {
-    background-color: #555555;
+  background-color: #1a6fd6; /* Highlight color */
+  border-radius: 5px; /* Rounded corners */
 }
 
+/* Auth Buttons */
 .auth-buttons {
-    margin-right: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin-right: 20px; /* Add spacing */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .auth-button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-    color: white;
+  margin: 0 10px; /* More spacing */
+  padding: 10px 20px; /* Larger buttons */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  background-color: #1a6fd6; /* Primary button color */
+  transition: all 0.3s ease;
 }
 
+.auth-button:hover {
+  background-color: #145aa6; /* Darker on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .side-header {
+    height: 50px; /* Smaller header for mobile */
+  }
+
+  .menu-item {
+    padding: 8px 10px; /* Smaller padding */
+    font-size: 14px; /* Smaller font */
+  }
+
+  .auth-button {
+    padding: 8px 12px; /* Smaller buttons */
+    font-size: 12px; /* Smaller font */
+  }
+
+  .logo-image {
+    height: 30px; /* Smaller logo */
+  }
+}
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
@@ -310,3 +370,19 @@
   }
   
 
+  .footer-button {
+    display: inline-block;
+    padding: 5px 5px;
+    margin: 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 8px;
+  }
+  
+  .footer-button:hover {
+    background-color: #1DA1F2;
+  }

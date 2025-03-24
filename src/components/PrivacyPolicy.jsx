@@ -100,5 +100,5 @@ const PrivacyPolicy = () => {
     </div>
   );
 };
-
+  
 export default PrivacyPolicy;

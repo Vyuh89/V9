@@ -320,7 +320,7 @@ body * {
 .piece-name {
   font-size: 7px;
   /* Smaller font size for the name */
-  color: black;
+  color: white;
   margin-top: 2px;
   /* Space between symbol and name */
   line-height: 1;
@@ -439,63 +439,6 @@ button {
 
 .App {
   display: flex;
-}
-
-.side-header {
-  width: 250px;
-  background-color: #2e3b55;
-  color: white;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  position: fixed;
-  height: 100vh;
-}
-
-.logo img {
-  width: 150px;
-  margin-bottom: 20px;
-}
-
-.side-header button {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #4a5d7d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.sub-options button {
-  margin: 5px 20px;
-  width: calc(100% - 40px);
-}
-
-.auth-buttons {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.play-options {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.play-options button {
-  background-color: #6c5ce7;
-  color: white;
-  margin-bottom: 10px;
-}
-
-button:hover {
-  background-color: #576b95;
 }
 
 /* Base styles for Point Table (Panduv and Kauruv) */
