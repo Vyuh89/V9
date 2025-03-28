@@ -7,35 +7,51 @@ const Play = () => {
 
   // State to manage the modal visibility for Vyuh
   const [showVyuhModal, setShowVyuhModal] = useState(false);
-  const [selectedVyuhRole, setSelectedVyuhRole] = useState(''); // To store the Vyuh selected role
+  const [selectedVyuhRole, setSelectedVyuhRole] = useState('');
 
   // State to manage the modal visibility for ColdWar
   const [showColdWarModal, setShowColdWarModal] = useState(false);
-  const [selectedColdWarRole, setSelectedColdWarRole] = useState(''); // To store the ColdWar selected role
+  const [selectedColdWarRole, setSelectedColdWarRole] = useState('');
+
+  // State to manage the modal visibility for DharmaVSAdharma
+  const [showDharmaModal, setShowDharmaModal] = useState(false);
 
   const handleMahabharatClick = () => {
     setShowVyuhModal(true); // Show the Vyuh role selection modal
-  };
-
-  const handleModalOverlayClick = (e) => {
-    if (!e.target.closest(".modal-box")) {
-      setShowVyuhModal(false);
-      setShowColdWarModal(false);
-    }
   };
 
   const handleSuperPowerClick = () => {
     setShowColdWarModal(true); // Show the ColdWar role selection modal
   };
 
+  const handleDharmaVSAdharmaClick = () => {
+    setShowDharmaModal(true); // Show the DharmaVSAdharma modal
+  };
+
+  const handleModalOverlayClick = (e) => {
+    if (!e.target.closest(".modal-box")) {
+      setShowVyuhModal(false);
+      setShowColdWarModal(false);
+      setShowDharmaModal(false);
+    }
+  };
+
   const handleVyuhRoleSelect = (role) => {
-    setSelectedVyuhRole(role); // Set the selected Vyuh role
-    navigate('/board', { state: { role } }); // Navigate to board with the Vyuh role
+    setSelectedVyuhRole(role);
+    navigate('/board', { state: { role } });
   };
 
   const handleColdWarRoleSelect = (role) => {
-    setSelectedColdWarRole(role); // Set the selected ColdWar role
-    navigate('/bond', { state: { role } }); // Navigate to bond with the ColdWar role
+    setSelectedColdWarRole(role);
+    navigate('/bond', { state: { role } });
+  };
+
+  const handleDharmaClick = () => {
+    navigate('/dharma'); // Navigate to Dharma.jsx
+  };
+
+  const handleAdharmaClick = () => {
+    navigate('/dharma'); // Navigate to Adharma.jsx
   };
 
   return (
@@ -46,15 +62,18 @@ const Play = () => {
       <button className="play-button" onClick={handleSuperPowerClick}>
         🏆 Cold War 🏆
       </button>
+      <button className="play-button" onClick={handleDharmaVSAdharmaClick}>
+      🛡️धर्म✨ | ☠️अधर्म🔥 
+      </button>
       <button className="play-button" onClick={() => window.location.href = "https://youtu.be/0_ExuB2Oj7s"}>
         🏆 How to Play 🎮
       </button>
+
       {/* Vyuh Role Selection Modal */}
       {showVyuhModal && (
         <div className="modal-overlay" onClick={handleModalOverlayClick}>
           <div className="modal-box">
             <h2>Choose Your Role</h2>
-
             {/* Pandav Section */}
             <button onClick={() => handleVyuhRoleSelect('Pandav')} className="role-button">
               पांडव 🛡️
@@ -68,7 +87,6 @@ const Play = () => {
               </small>
             </div>
             <hr className="role-separator" />
-
             {/* Kaurav Section */}
             <button onClick={() => handleVyuhRoleSelect('Kaurav')} className="role-button">
               कौरव ⚔️
@@ -113,6 +131,40 @@ const Play = () => {
               </p>
               <small>
                 🇺🇸 UNITED STATES, 🇨🇦 CANADA, 🇫🇷 FRANCE, 🇬🇧 UNITED KINGDOM, 🇩🇪 GERMANY, 🇮🇹 ITALY, 🇦🇺 AUSTRALIA, 🇰🇷 SOUTH KOREA, 🇯🇵 JAPAN
+              </small>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DharmaVSAdharma Modal */}
+      {showDharmaModal && (
+        <div className="modal-overlay" onClick={handleModalOverlayClick}>
+          <div className="modal-box">
+            <h2>Choose Your Path ...💐</h2>
+            {/* Dharma Section */}
+            <button onClick={handleDharmaClick} className="role-button">
+            🛡️   ...धर्म... ✨
+            </button>
+            <div className="role-names">
+              <p style={{ color: 'yellow', fontWeight: 'bold', marginBottom: '10px' }}>
+                धर्म के 12 सिद्धांत:
+              </p>
+              <small>
+              🌟 1. सत्य का पालन, 🕊️ 2. अहिंसा, ⚖️ 3. न्यायप्रियता, 🤝 4. वचनबद्धता, 🙏 5. भक्ति, 🧘‍♂️ 6. सहनशीलता, 🎁 7. दानशीलता, 👨‍👩‍👧‍👦 8. भाईचारा, 🎯 9. समर्पण, 🤝 10. सहयोग, 📚 11. शिक्षा और ज्ञान, 🧘‍♂️  12. आत्मसंयम
+              </small>
+            </div>
+            <hr className="role-separator" />
+            {/* Adharma Section */}
+            <button onClick={handleAdharmaClick} className="role-button">
+            ☠️...अधर्म...🔥
+            </button>
+            <div className="role-names">
+              <p style={{ color: 'yellow', fontWeight: 'bold', marginBottom: '10px' }}>
+                अधर्म के 12 सिद्धांत:
+              </p>
+              <small>
+               🎭 1. छल और कपट, ⚔️ 2. अन्याय, 👑 3. अहंकार, 🔥 4. हिंसा, 💰 5. लालच, 🤥 6. झूठ, 🗡️ 7. क्रूरता, 👿 8. अनैतिकता, 👨‍🏫 9. गुरुओं का अपमान, 🗝️ 10. विश्वासघात, ⚔️ 11. अधर्म का साथ, 🛡️ 12. अनुचित युद्ध नीति
               </small>
             </div>
           </div>

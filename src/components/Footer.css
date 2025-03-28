@@ -311,7 +311,7 @@ li {
   right: 0;
   color: white;
   font-size: 10px; /* Slightly larger for better readability */
-  background: linear-gradient(135deg, #0e0e0f, #0ae8f4); /* Royal gradient */
+  background: linear-gradient(135deg, #e90f0f, #77c6e3); /* Royal gradient */
   padding: 3px 8px; /* More padding for a polished look */
   border-radius: 10px 0 0 0; /* Rounded corners on the top-left */
   opacity: 0.9; /* Slightly more opaque for better visibility */

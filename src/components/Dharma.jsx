@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import PlayerCount from "./PlayerCount";
+import DharmaCount from "./DharmaCount";
 
-const Board = () => {
-  const totalButtons = 24;
+const Dharma = () => { 
+  const totalButtons = 32;
   const [buttons, setButtons] = useState(Array(totalButtons).fill({ symbol: null, color: "white", name: null }));
   const [kingCount, setKingCount] = useState(0);
   const [queenCount, setQueenCount] = useState(0);
@@ -23,27 +24,30 @@ const Board = () => {
   const [winner, setWinner] = useState(null);
 
   // Inside the Board component
-  const [kingLeftDices, setKingLeftDices] = useState(9); // Initial dice count for King
-  const [queenLeftDices, setQueenLeftDices] = useState(9); // Initial dice count for Queen
+  const [kingLeftDices, setKingLeftDices] = useState(12); // Initial dice count for King
+  const [queenLeftDices, setQueenLeftDices] = useState(12); // Initial dice count for Queen
   const [removedPandavNames, setRemovedPandavNames] = useState([]);
   const [removedKauravNames, setRemovedKauravNames] = useState([]);
 
-  const pandavNames = ["👑 युधिष्ठिर", "🏹 अर्जुन", "💪 भीम", "⚔️ नकुल", "🛡️ सहदेव", "🎯अभिमन्यु", "🔥 धृष्टद्युम्न", "🪓 सत्यकी", "👹 घटोत्कच"];
-  const kauravNames = ["🛡️ भीष्म", "🎓 द्रोणाचार्य", "🔥 कर्ण", "🥶 अश्वत्थामा", "🗡 कृपाचार्य", "🔪 कृतवर्मा", "🎭दुर्योधन", "🥻 दुशासन", "🎃 युयुत्सु"];
+  const pandavNames = ["🌟 सत्य का पालन", "🕊️ अहिंसा", "⚖️ न्याय प्रियता", "🤝 वचन बद्धता", "🙏 भक्ति", "🧘‍♂️ सहन शीलता", "🎁 दान शीलता", "👨‍👩‍👧‍👦 भाई चारा", "🎯 सम र्पण", "🤝 सह योग", "📚 शिक्षा और ज्ञान", "🧘‍♂️ आत्म संयम"];
+  const kauravNames = ["🎭 छल और कपट", "⚔️ अन्याय", "👑 अहंकार", "🔥 हिंसा", "💰 लालच", "🤥 झूठ", "🗡️ क्रूरता", "👿 अनैति कता", "👨‍🏫 गुरुओं का अपमान", "🗝️ विश्वा सघात", "⚔️ अधर्म का साथ", "🛡️ अनुचित युद्ध नीति"];
 
   const movementRules = {
-    0: [1, 3], 1: [0, 2, 9], 2: [1, 4], 3: [0, 11, 5], 4: [2, 7, 12],
-    5: [3, 6], 6: [5, 14, 7], 7: [6, 4], 8: [9, 11], 9: [1, 8, 10, 17],
-    10: [9, 12], 11: [3, 8, 19, 13], 12: [4, 10, 15, 20], 13: [11, 14],
-    14: [6, 13, 22, 15], 15: [14, 12], 16: [17, 19], 17: [9, 18, 16],
+    0: [1, 3], 1: [0, 2,25], 2: [1, 4], 3: [0,5,27], 4: [2, 7, 28],
+    5: [3, 6], 6: [5, 30, 7], 7: [6, 4], 8: [9, 11], 9: [25, 8, 10, 17],
+    10: [9, 12], 11: [27, 8, 19, 13], 12: [28, 10, 15, 20], 13: [11, 14],
+    14: [30, 13, 22, 15], 15: [14, 12], 16: [17, 19], 17: [9, 18, 16],
     18: [17, 20], 19: [11, 16, 21], 20: [12, 23, 18], 21: [22, 19],
-    22: [14, 21, 23], 23: [22, 20]
+    22: [14, 21, 23], 23: [22, 20] , 24: [25, 27] , 25: [1,24, 26,9] 
+    , 26: [25, 28], 27: [3,24,11,29], 28: [4,12,26,31] , 29: [27,30]
+    , 30: [6,14,31,29] , 31: [28,30]
   };
 
   const linesToCheck = [
     [0, 1, 2], [0, 3, 5], [5, 6, 7], [7, 4, 2], [8, 9, 10], [8, 11, 13],
     [13, 14, 15], [15, 12, 10], [16, 17, 18], [16, 19, 21], [21, 22, 23],
-    [23, 20, 18], [1, 9, 17], [8, 9, 10], [3, 11, 19], [22, 14, 6], [20, 12, 4]
+    [23, 20, 18],[24, 25, 26], [24,27,29], [26,28,31], [29,30,31],
+    [1,25,9,17], [20,12,28,4], [22,14,30,6], [3,27,11,19]
   ];
 
 
@@ -63,34 +67,31 @@ const Board = () => {
   // console.log(isKingTurn, "isKingTurn")
 
   const handleClick = (index) => {
-
     setButtons((prevButtons) => {
       const newButtons = [...prevButtons];
       const current = newButtons[index];
-
-      if (kingCount < 9 - kingRemovals && isKingTurn && kingLeftDices > 0) {
+  
+      if (kingCount < 12 - kingRemovals && isKingTurn && kingLeftDices > 0) {
         setKingLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
-      } else if (queenCount < 9 - queenRemovals && !isKingTurn && queenLeftDices > 0) {
+      } else if (queenCount < 12 - queenRemovals && !isKingTurn && queenLeftDices > 0) {
         setQueenLeftDices((prev) => Math.max(prev - 1, 0)); // Ensure count doesn't go below 0
       }
-
-      // Rest of your existing logic...
+  
       return newButtons;
     });
-
+  
     console.log(index, "index");
     const audio = new Audio('gt.mp3');
-
+  
     setButtons((prevButtons) => {
       const newButtons = [...prevButtons];
       const current = newButtons[index];
-
-
+  
       // Check if it's the player's turn
       if (current.symbol === "." && !isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn !  It's कौरव ⚔️ Turn.";
+        messageDiv.textContent = "Not Your Turn !  It's ☠️अधर्म🔥 Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
@@ -102,23 +103,22 @@ const Board = () => {
       if (current.symbol === "'" && isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn ! It's पांडव 🛡️ Turn.";
+        messageDiv.textContent = "Not Your Turn ! It's 🛡️धर्म✨ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
         setTimeout(() => {
           messageDiv.remove();
         }, 3000);
-
         return prevButtons;
       }
-
+  
       console.log({
         prevButtons,
         selectedIndex: selectedIndex === index,
         currentSymbol: current.symbol,
       });
-
+  
       if (selectedIndex === index) {
         setSelectedIndex(null);
       } else if (current.symbol !== null && selectedIndex === null) {
@@ -135,20 +135,28 @@ const Board = () => {
           setIsKingTurn(newButtons[index].symbol === "'");
           audio.play(); // Play sound for King
         }
-      } else if (kingCount < 9 - kingRemovals && isKingTurn) {
+      } else if (kingCount < 12 - kingRemovals && isKingTurn) {
         const availablePandavNames = pandavNames.filter((name) => !removedPandavNames.includes(name));
-        newButtons[index] = { symbol: ".", color: "Red", name: availablePandavNames[kingCount] };
+        newButtons[index] = { 
+          symbol: ".", 
+          color: "Red", 
+          name: availablePandavNames[kingCount] || pandavNames[kingCount] 
+        };
         setKingCount(kingCount + 1);
         setIsKingTurn(false);
-        audio.play(); // Play sound for King
-      } else if (queenCount < 9 - queenRemovals && !isKingTurn) {
+        audio.play();
+      } else if (queenCount < 12 - queenRemovals && !isKingTurn) {
         const availableKauravNames = kauravNames.filter((name) => !removedKauravNames.includes(name));
-        newButtons[index] = { symbol: "'", color: "Black", name: availableKauravNames[queenCount] };
+        newButtons[index] = { 
+          symbol: "'", 
+          color: "Black", 
+          name: availableKauravNames[queenCount] || kauravNames[queenCount] 
+        };
         setQueenCount(queenCount + 1);
         setIsKingTurn(true);
-        audio.play(); // Play sound for Queen
+        audio.play();
       }
-
+  
       setShowRemoveButton(false);
       return newButtons;
     });
@@ -159,7 +167,7 @@ const Board = () => {
 
     // Prevent removing dice if the color is Yellow or seagreen
     const currentColor = getButtonColor(index);
-    if (currentColor === "rgb(240, 64, 64)" || currentColor === "rgb(15, 12, 12)") return;
+    if (currentColor === "darkred" || currentColor === "#141415") return;
     if (buttons[index].symbol === null) return;
 
     // Get the position of the button
@@ -172,7 +180,7 @@ const Board = () => {
     // Show the "Remove" button
     setShowRemoveButton(true);
     setRemoveButtonIndex(index);
-  }
+  };
 
   // Add long-press support for touch devices
   const handleTouchStart = (event, index) => {
@@ -229,8 +237,8 @@ const Board = () => {
   const getButtonColor = (index) => {
     const isGolden = goldenLines.some((line) => line.includes(index));
     const isBurlywood = pinkLines.some((line) => line.includes(index));
-    if (isGolden) return "rgb(240, 64, 64)";
-    if (isBurlywood) return "rgb(15, 12, 12)";
+    if (isGolden) return "darkred";
+    if (isBurlywood) return "#141415";
     return buttons[index].color;
   };
 
@@ -282,10 +290,10 @@ const Board = () => {
 
   // Check for winner
   useEffect(() => {
-    if (kingRemovalCount >= 7) {
-      setWinner("पांडव🛡️");
-    } else if (queenRemovalCount >= 7) {
-      setWinner("कौरव⚔️");
+    if (kingRemovalCount >= 10) {
+      setWinner("🛡️धर्म✨");
+    } else if (queenRemovalCount >= 10) {
+      setWinner("☠️अधर्म🔥");
     }
   }, [kingRemovalCount, queenRemovalCount]);
 
@@ -299,30 +307,33 @@ const Board = () => {
 
   return (
     <>
-      <PlayerCount
+
+     <DharmaCount
         kingRemovalCount={kingRemovalCount}
         queenRemovalCount={queenRemovalCount}
         kingTime={kingTime}
         queenTime={queenTime}
         kingLeftDices={kingLeftDices}
         queenLeftDices={queenLeftDices}
-      />
+     />
 
-      <div className="rectangle-container Board-background">
-        {buttons.map((btn, index) => (
-          <button
-            key={index}
-            className={`rectangle-button ${selectedIndex === index ? "selected" : ""}`}
-            onClick={() => handleClick(index)}
-            onContextMenu={(event) => handleContextMenu(event, index)} // Right-click support
-            onTouchStart={(event) => handleTouchStart(event, index)} // Long-press support for touch devices
-            onTouchEnd={handleTouchEnd} // Clear long-press timer
-            style={{ backgroundColor: getButtonColor(index) }}
-          >
-            <div className="piece-symbol">{btn.symbol}</div>
-            {btn.name && <div className="piece-name">{btn.name}</div>}
-          </button>
-        ))}
+  <div className="dharma-container Board-background">
+  {buttons.map((btn, index) => (
+  <button
+    key={index}
+    className={`dharma-button ${selectedIndex === index ? "selected" : ""}`}
+    onClick={() => handleClick(index)}
+    onContextMenu={(event) => handleContextMenu(event, index)}
+    onTouchStart={(event) => handleTouchStart(event, index)}
+    onTouchEnd={handleTouchEnd}
+    style={{ backgroundColor: getButtonColor(index) }}
+  >
+    <div className="button-content">
+      {btn.symbol && <div className="piece-symbol">{btn.symbol}</div>}
+      {btn.name && <div className="piece-name">{btn.name}</div>}
+    </div>
+  </button>
+))}
         {showRemoveButton && (
           <button
             className="remove-button"
@@ -353,7 +364,7 @@ const Board = () => {
           <div
             className="blinking-light"
             style={{
-              backgroundColor: isKingTurn ? "rgb(240, 64, 64)" : "rgb(14, 14, 15)",
+              backgroundColor: isKingTurn ? "rgb(235, 35, 16)" : "rgb(10, 10, 10)",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -366,13 +377,14 @@ const Board = () => {
               textAlign: "center",
             }}
           >
-            {isKingTurn ? "Turn is 🛡️ पांडव" : "Turn is ⚔️ कौरव"}
+            {isKingTurn ? "Turn is 🛡️धर्म✨" : "Turn is ☠️अधर्म🔥"}
           </div>
         </div>
 
         <svg className="rectangle-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <rect x="5" y="5" width="90" height="90" fill="none" stroke="red" strokeWidth="0.4" />
-          <rect x="20" y="20" width="60" height="60" fill="none" stroke="blue" strokeWidth="0.4" />
+          <rect x="5" y="5" width="90" height="90" fill="none" stroke="red" strokeWidth="0.6" />
+          <rect x="15" y="15" width="70" height="70" fill="none" stroke="blue" strokeWidth="0.4" />
+          <rect x="25" y="25" width="50" height="50" fill="none" stroke="Green" strokeWidth="0.4" />
           <rect x="35" y="35" width="30" height="30" fill="none" stroke="orange" strokeWidth="0.4" />
           <line x1="50%" y1="5%" x2="50%" y2="20%" stroke="blue" strokeWidth="0.4" />
           <line x1="50%" y1="20%" x2="50%" y2="35%" stroke="blue" strokeWidth="0.4" />
@@ -387,4 +399,5 @@ const Board = () => {
     </>
   );
 };
-export default Board;
+export default Dharma;
+

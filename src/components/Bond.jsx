@@ -29,8 +29,8 @@ const Board = () => {
   const [removedPandavNames, setRemovedPandavNames] = useState([]);
   const [removedKauravNames, setRemovedKauravNames] = useState([]);
 
-  const pandavNames = ["🇷🇺 RUSSIA", "🇨🇳 CHINA", "🇮🇳 INDIA", "🇷🇴 Roma nia", "🇵🇱 Poland", "🇭🇺 Hungary", "🇰🇵 North Korea", "🇮🇩 INDO NESIA", "🇪🇬 Egypt"];
-  const kauravNames = ["🇺🇸 UNITED STATES", "🇨🇦 CANADA", "🇫🇷 FRANCE", "🇬🇧 UNITED KING DOM", "🇩🇪 GER MANY", "🇮🇹 ITALY", "🇦🇺 Austra lia", "🇰🇷 South Korea", "🇯🇵 Japan"];
+  const pandavNames = ["🇷🇺 RUSSIA", "🇨🇳 CHINA", "🇮🇳 INDIA", "🇷🇴 Roma nia", "🇵🇱 Poland", "🇭🇺 Hung ary", "🇰🇵 North Korea", "🇮🇩 INDO NESIA", "🇪🇬 Egypt"];
+  const kauravNames = ["🇺🇸 UNITED STATES", "🇨🇦 CANA DA", "🇫🇷 FRAN CE", "🇬🇧 UNITED KING DOM", "🇩🇪 GER MANY", "🇮🇹 ITALY", "🇦🇺 Austra lia", "🇰🇷 South Korea", "🇯🇵 Japan"];
 
   const movementRules = {
     0: [1, 3], 1: [0, 2, 9], 2: [1, 4], 3: [0, 11, 5], 4: [2, 7, 12],
@@ -88,22 +88,23 @@ const Board = () => {
 
 
       // Check if it's the player's turn
-      if (current.symbol === "P" && !isKingTurn) {
+      if (current.symbol === "." && !isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn !  It's कौरव ⚔️ Turn.";
+        messageDiv.textContent = "Not Your Turn !  It's Western Allies ⚔️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
         setTimeout(() => {
           messageDiv.remove();
         }, 3000);
+
         return prevButtons;
       }
-      if (current.symbol === "K" && isKingTurn) {
+      if (current.symbol === "'" && isKingTurn) {
         // Create and display the message
         const messageDiv = document.createElement("div");
-        messageDiv.textContent = "Not Your Turn ! It's पांडव 🛡️ Turn.";
+        messageDiv.textContent = "Not Your Turn ! It's Eastern Allies 🛡️ Turn.";
         messageDiv.className = "turn-message";
         document.body.appendChild(messageDiv);
         // Remove the message after 3 seconds
@@ -125,7 +126,7 @@ const Board = () => {
       } else if (current.symbol !== null && selectedIndex === null) {
         if (movementRules[index].some((move) => newButtons[move].symbol === null)) {
           setSelectedIndex(index);
-          setIsKingTurn(current.symbol === "P");
+          setIsKingTurn(current.symbol === ".");
           audio.play(); // Play sound for King
         }
       } else if (selectedIndex !== null && current.symbol === null) {
@@ -133,18 +134,18 @@ const Board = () => {
           newButtons[index] = newButtons[selectedIndex];
           newButtons[selectedIndex] = { symbol: null, color: "white", name: null };
           setSelectedIndex(null);
-          setIsKingTurn(newButtons[index].symbol === "K");
+          setIsKingTurn(newButtons[index].symbol === "'");
           audio.play(); // Play sound for King
         }
       } else if (kingCount < 9 - kingRemovals && isKingTurn) {
         const availablePandavNames = pandavNames.filter((name) => !removedPandavNames.includes(name));
-        newButtons[index] = { symbol: "P", color: "Red", name: availablePandavNames[kingCount] };
+        newButtons[index] = { symbol: ".", color: "Red", name: availablePandavNames[kingCount] };
         setKingCount(kingCount + 1);
         setIsKingTurn(false);
         audio.play(); // Play sound for King
       } else if (queenCount < 9 - queenRemovals && !isKingTurn) {
         const availableKauravNames = kauravNames.filter((name) => !removedKauravNames.includes(name));
-        newButtons[index] = { symbol: "K", color: "Black", name: availableKauravNames[queenCount] };
+        newButtons[index] = { symbol: "'", color: "Black", name: availableKauravNames[queenCount] };
         setQueenCount(queenCount + 1);
         setIsKingTurn(true);
         audio.play(); // Play sound for Queen
@@ -209,12 +210,12 @@ const Board = () => {
       const newButtons = [...prevButtons];
       const removedPiece = newButtons[removeButtonIndex];
       // Add the removed name to the removed list
-      if (removedPiece.symbol === "P") {
+      if (removedPiece.symbol === ".") {
         setRemovedPandavNames((prev) => [...prev, removedPiece.name]);
         setKingCount(kingCount - 1);
         setKingRemovals(kingRemovals + 1);
         setQueenRemovalCount(queenRemovalCount + 1);
-      } else if (removedPiece.symbol === "K") {
+      } else if (removedPiece.symbol === "'") {
         setRemovedKauravNames((prev) => [...prev, removedPiece.name]);
         setQueenCount(queenCount - 1);
         setQueenRemovals(queenRemovals + 1);
@@ -242,15 +243,41 @@ const Board = () => {
   const checkForLines = () => {
     const newGoldenLines = [];
     const newPinkLines = [];
+    let newLineFormed = false;
+  
+    // Check each line to see if it's newly formed
     linesToCheck.forEach((line) => {
       const [a, b, c] = line;
-      if (buttons[a].symbol === "P" && buttons[b].symbol === "P" && buttons[c].symbol === "P") {
+      const isGoldenLine = buttons[a].symbol === "." && buttons[b].symbol === "." && buttons[c].symbol === ".";
+      const isPinkLine = buttons[a].symbol === "'" && buttons[b].symbol === "'" && buttons[c].symbol === "'";
+  
+      // Check if this line wasn't previously marked
+      const wasGoldenLine = goldenLines.some(l => l.toString() === line.toString());
+      const wasPinkLine = pinkLines.some(l => l.toString() === line.toString());
+  
+      if (isGoldenLine && !wasGoldenLine) {
         newGoldenLines.push(line);
-      } else if (buttons[a].symbol === "K" && buttons[b].symbol === "K" && buttons[c].symbol === "K") {
+        newLineFormed = true;
+      } else if (isPinkLine && !wasPinkLine) {
         newPinkLines.push(line);
+        newLineFormed = true;
+      } else if (isGoldenLine) {
+        newGoldenLines.push(line); // Keep existing golden lines
+      } else if (isPinkLine) {
+        newPinkLines.push(line); // Keep existing pink lines
       }
     });
-
+  
+    // Only play sound if a new line was formed
+    if (newLineFormed) {
+      const audio = new Audio('war.mp3');
+      audio.play();
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }, 3000); // Stop after 2 seconds
+    }
+  
     setGoldenLines(newGoldenLines);
     setPinkLines(newPinkLines);
   };
@@ -333,7 +360,7 @@ const Board = () => {
               justifyContent: "center",
               alignItems: "center",
               color: "White",
-              fontSize: "0.6rem",
+              fontSize: "0.2rem",
               fontWeight: "lighter",
               height: "55px", // Adjust for better display
               width: "200px", // Adjust for better display
