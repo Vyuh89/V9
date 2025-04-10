@@ -311,13 +311,13 @@ li {
   right: 0;
   color: white;
   font-size: 10px; /* Slightly larger for better readability */
-  background: linear-gradient(135deg, #e90f0f, #77c6e3); /* Royal gradient */
+  background: linear-gradient(135deg, #141313, #141414); /* Royal gradient */
   padding: 3px 8px; /* More padding for a polished look */
   border-radius: 10px 0 0 0; /* Rounded corners on the top-left */
   opacity: 0.9; /* Slightly more opaque for better visibility */
   text-align: right;
   z-index: 1000;
-  box-shadow: 0 -2px 10px rgba(234, 242, 9, 0.968); /* Subtle shadow for depth */
+  box-shadow: 0 -2px 10px rgba(24, 222, 206, 0.968); /* Subtle shadow for depth */
   transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 

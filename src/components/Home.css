@@ -32,7 +32,7 @@ body {
 }
 
 .hero-section {
-    background: linear-gradient(-45deg, #eed7075c, #798109, #340663, #00e07f); /* Luxurious gradient */
+    background: linear-gradient(-45deg, #1f20205c, #20201c, #161717, #34ef8e); /* Luxurious gradient */
     background-size: 300% 300%;
     animation: gradientAnimation 10s ease infinite;
     position: relative;
